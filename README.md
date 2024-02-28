@@ -5,47 +5,35 @@
 |Column|Type|Options|
 |------------|--------|-------|
 |nickname    |string |null: false|
-|mail        |string |null: false|
-|password    |string |null: false|
+|mail        |string |null: false, default: ""|
 |encrypted_password    |string |null: false|
 |first_name  |string |null: false|
 |last_name   |string |null: false|
 |first_kana  |string |null: false|
 |first_kana  |string |null: false|
-|birth_year  |integer|null: false|
-|birth_month |integer|null: false|
-|birth_day   |integer|null: false|
+|birthday    |date   |null: false|
 
 ### Assosiation
-- has_many :cards
+
 - has_many :items
 - has_many :comments
-
-## cardsテーブル
-|Column|Type|Options|
-|------|----|-------|
-|user_id    |integer|null: false, foreign_key: true|
-|limit_month|integer|null: false|
-|limit_year |integer|null: false|
-|security   |integer|null: false|
-
-### Assosiation
-- belongs_to :user
+- has_many :purchase_history
+- has_one :address
 
 ## itemsテーブル
 |Column|Type|Options|
 |------|----|-------|
-|image_id      |integer|null: false, foreign_key: true|
+
 |name          |string |null: false, limit:40|
 |description   |text   |null: false, limit:1000|
 |category_id   |integer|null: false, foreign_key: true|
 |condition     |string|
 |ship_charge   |string|null: false|
-|ship_area     |string|null: false|
-|ship_date     |string|null: false|
-|ship_method   |string|null: false|
+|ship_area_id  |integer |null: false, foreign_key: true |
+|ship_date_id  |integer |null: false, foreign_key: true |
+|ship_method_id|integer |null: false, foreign_key: true |
 |price         |integer|null: false, foreign_key: true|
-|user_id       |integer|null: false, foreign_key: true|
+|user          |references|null: false, foreign_key: true|
 
 ### Assosiation
 - belongs_to :user
@@ -53,6 +41,21 @@
 - has_many :comments
 - has_many :images
 - has_one :condition
+
+
+## addressテーブル
+|Column|Type|Options|
+|------|----|-------|
+|postal_code   |string |null: false|
+|prefecture_id   |integer |null: false|
+|city_id  |integer|null: false|
+|street    |string|null: false|
+|building   |string|null: false|
+|phone_number  |string|null: false, foreign_key: true |
+|purchase  |references |null: false, foreign_key: true |
+
+### Assosiation
+- belongs_to :user
 
 ## commentsテーブル
 |Column|Type|Options|
@@ -63,15 +66,6 @@
 
 ### Assosiation
 - belongs_to :user
-- belongs_to :item
-
-## conditionテーブル
-|Column|Type|Options|
-|------|----|-------|
-|name   |string |null: false|
-|item_id|integer|null: false, foreign_key: true|
-
-### Assosiation
 - belongs_to :item
 
 ## categoryテーブル
@@ -91,3 +85,12 @@
 
 ### Assosiation
 - belongs_to :item
+
+## purchase_historyテーブル
+|Column|Type|Options|
+|------|----|-------|
+|user   |references|null: false, foreign_key: true|
+|product|references|null: false, foreign_key: true|
+
+### Assosiation
+- belongs_to :user
