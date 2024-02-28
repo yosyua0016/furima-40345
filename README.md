@@ -17,7 +17,7 @@
 
 - has_many :items
 - has_many :comments
-- has_many :purchase_history
+- has_many :purchase_histories
 
 ## itemsテーブル
 |Column|Type|Options|
@@ -27,7 +27,6 @@
 |description   |text   |null: false, limit:1000|
 |category_id   |integer|null: false|
 |condition     |string|
-|ship_charge|string|null: false|
 |ship_area_id  |integer |null: false|
 |ship_date_id  |integer |null: false|
 |ship_method_id|integer |null: false|
@@ -39,8 +38,7 @@
 - belongs_to :category
 - has_many :comments
 - has_many :images
-- has_one :condition
-- has_many :purchase_history
+- has_one :purchase_history
 
 
 ## addressテーブル
@@ -48,14 +46,14 @@
 |------|----|-------|
 |postal_code   |string |null: false|
 |prefecture_id   |integer |null: false|
-|city_id  |integer|null: false|
+|city  |string|null: false|
 |street    |string|null: false|
-|building   |string|null: false|
+|building   string
 |phone_number  |string|null: false|
 |purchase_history|references |null: false, foreign_key: true |
 
 ### Assosiation
--has_one :purchase_history
+-belongs_to :purchase_history
 
 ## commentsテーブル
 |Column|Type|Options|
@@ -91,9 +89,8 @@
 |------|----|-------|
 |user   |references|null: false, foreign_key: true|
 |item   |references|null: false, foreign_key: true|
-|address  |references|null: false, foreign_key: true|
 
 ### Assosiation
 - belongs_to :user
 - belongs_to :item
-- belongs_to :address
+- has_one :address
