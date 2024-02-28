@@ -6,7 +6,7 @@
 |------------|--------|-------|
 |nickname    |string |null: false|
 |mail        |string |null: false, unique: true,default: ""
-|encrypted_password    |string |null: false|
+|encrypted_password    |string |null: false, default: ""
 |first_name  |string |null: false|
 |last_name   |string |null: false|
 |first_kana  |string |null: false|
