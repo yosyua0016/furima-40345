@@ -14,7 +14,6 @@
 |birthday    |date   |null: false|
 
 ### Assosiation
-
 - has_many :items
 - has_many :comments
 - has_many :purchase_histories
@@ -26,7 +25,7 @@
 |name          |string |null: false, limit:40|
 |description   |text   |null: false, limit:1000|
 |category_id   |integer|null: false|
-|condition     |string|
+|condition_id  |integer |null: false|
 |ship_area_id  |integer |null: false|
 |ship_date_id  |integer |null: false|
 |ship_method_id|integer |null: false|
@@ -37,18 +36,17 @@
 - belongs_to :user
 - belongs_to :category
 - has_many :comments
-- has_many :images
 - has_one :purchase_history
 
 
-## addressテーブル
+## addressesテーブル
 |Column|Type|Options|
 |------|----|-------|
 |postal_code   |string |null: false|
 |ship_area_id  |integer |null: false|
 |city  |string|null: false|
 |street    |string|null: false|
-|building   string
+|building   |string|
 |phone_number  |string|null: false|
 |purchase_history|references |null: false, foreign_key: true |
 
@@ -66,7 +64,7 @@
 - belongs_to :user
 - belongs_to :item
 
-## categoryテーブル
+## categoriesテーブル
 |Column|Type|Options|
 |------|----|-------|
 |name    |string|null: false|
@@ -75,16 +73,7 @@
 ### Assosiation
 - has_many :items
 
-## imagesテーブル
-|Column|Type|Options|
-|------|----|-------|
-|image   |text   |null: false|
-|item_id|integer|null: false, foreign_key: true|
-
-### Assosiation
-- belongs_to :item
-
-## purchase_historyテーブル
+## purchase_historiesテーブル
 |Column|Type|Options|
 |------|----|-------|
 |user   |references|null: false, foreign_key: true|
