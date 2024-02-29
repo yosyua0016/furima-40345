@@ -1,24 +1,85 @@
 # README
+# DB設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## usersテーブル
+|Column|Type|Options|
+|------------|--------|-------|
+|nickname    |string |null: false|
+|email        |string |null: false, unique: true|
+|encrypted_password    |string |null: false|
+|first_name  |string |null: false|
+|last_name   |string |null: false|
+|first_name_kana  |string |null: false|
+|last_name_kana  |string |null: false|
+|birthday    |date   |null: false|
 
-Things you may want to cover:
+### Assosiation
+- has_many :items
+- has_many :comments
+- has_many :purchase_histories
 
-* Ruby version
+## itemsテーブル
+|Column|Type|Options|
+|------|----|-------|
 
-* System dependencies
+|name          |string |null: false|
+|description   |text   |null: false|
+|category_id   |integer|null: false|
+|condition_id  |integer |null: false|
+|ship_area_id  |integer |null: false|
+|ship_date_id  |integer |null: false|
+|ship_method_id|integer |null: false|
+|price         |integer|null: false|
+|user          |references|null: false, foreign_key: true|
 
-* Configuration
+### Assosiation
+- belongs_to :user
+- belongs_to :category
+- has_many :comments
+- has_one :purchase_history
 
-* Database creation
 
-* Database initialization
+## addressesテーブル
+|Column|Type|Options|
+|------|----|-------|
+|postal_code   |string |null: false|
+|ship_area_id  |integer |null: false|
+|city  |string|null: false|
+|street    |string|null: false|
+|building   |string|
+|phone_number  |string|null: false|
+|purchase_history|references |null: false, foreign_key: true |
 
-* How to run the test suite
+### Assosiation
+-belongs_to :purchase_history
 
-* Services (job queues, cache servers, search engines, etc.)
+## commentsテーブル
+|Column|Type|Options|
+|------|----|-------|
+|text|text      |null: false|
+|user|references|null: false, foreign_key: true|
+|item|references|null: false, foreign_key: true|
 
-* Deployment instructions
+### Assosiation
+- belongs_to :user
+- belongs_to :item
 
-* ...
+## categoriesテーブル
+|Column|Type|Options|
+|------|----|-------|
+|name    |string|null: false|
+|ancestry|text  |null: false|
+
+### Assosiation
+- has_many :items
+
+## purchase_historiesテーブル
+|Column|Type|Options|
+|------|----|-------|
+|user   |references|null: false, foreign_key: true|
+|item   |references|null: false, foreign_key: true|
+
+### Assosiation
+- belongs_to :user
+- belongs_to :item
+- has_one :address
