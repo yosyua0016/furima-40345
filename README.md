@@ -45,7 +45,7 @@
 |Column|Type|Options|
 |------|----|-------|
 |postal_code   |string |null: false|
-|prefecture_id   |integer |null: false|
+|ship_area_id  |integer |null: false|
 |city  |string|null: false|
 |street    |string|null: false|
 |building   string
@@ -79,7 +79,7 @@
 |Column|Type|Options|
 |------|----|-------|
 |image   |text   |null: false|
-|image_id|integer|null: false, foreign_key: true|
+|item_id|integer|null: false, foreign_key: true|
 
 ### Assosiation
 - belongs_to :item
