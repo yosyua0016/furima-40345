@@ -67,10 +67,10 @@ RSpec.describe User, type: :model do
       end
 
       it 'passwordが全角文字を含むパスワードでは登録できない' do
-        @user.password = 'あいうえおか11' 
-        @user.password_confirmation = 'あいうえおか11' 
+        @user.password = 'あいうえおか11'
+        @user.password_confirmation = 'あいうえおか11'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password Include both letters and numbers"
+        expect(@user.errors.full_messages).to include 'Password Include both letters and numbers'
       end
 
       it 'passwordとpassword_confirmationが不一致では登録できない' do
