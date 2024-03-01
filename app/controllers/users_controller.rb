@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def update
     if current_user.update(user_params)
-      redirect_to current_user, notice: "ユーザー情報が更新されました。"
+      redirect_to current_user, notice: 'ユーザー情報が更新されました。'
     else
       render :edit, status: :unprocessable_entity
     end
