@@ -3,12 +3,12 @@ class ItemsController < ApplicationController
   #before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
-    #@items = Item.includes(:user).order('created_at DESC')
+    @items = Item.includes(:user).order('created_at DESC')
   end
 
-  #def show
-   # @item = Item.find(params[:id])
-  #end
+  def show
+    @item = Item.find(params[:id])
+  end
 
   def new
     @item = Item.new
