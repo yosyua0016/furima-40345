@@ -38,25 +38,25 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Category must be other than 0')
       end
 
-      it 'condition_idが0では保存できない' do
+      it 'condition_idが「---」では保存できない' do
         @item.condition_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include('Condition must be other than 0')
       end
 
-      it 'ship_area_idが0では保存できない' do
+      it 'ship_area_idが「---」では保存できない' do
         @item.ship_area_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include('Ship area must be other than 0')
       end
 
-      it 'ship_date_idが0では保存できない' do
+      it 'ship_date_idが「---」では保存できない' do
         @item.ship_date_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include('Ship date must be other than 0')
       end
 
-      it 'ship_method_idが0では保存できない' do
+      it 'ship_method_idが「---」では保存できない' do
         @item.ship_method_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include('Ship method must be other than 0')
