@@ -1,6 +1,6 @@
 const calculateProfit = () => {
   const priceInput = document.getElementById("item-price");
-  if (!priceInput) { return false; } // item-priceがないページでは何もしない
+  if (!priceInput) { return false; } 
 
   priceInput.addEventListener("input", () => {
     const inputValue = priceInput.value;
