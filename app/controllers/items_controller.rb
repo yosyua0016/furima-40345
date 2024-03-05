@@ -23,24 +23,24 @@ class ItemsController < ApplicationController
     end
   end
 
-  def edit
-    return unless @item.user_id != current_user.id || @item.order.present?
+  #def edit
+   # return unless @item.user_id != current_user.id || @item.order.present?
 
-    redirect_to root_path
-  end
+    #redirect_to root_path
+  #end
 
-  def update
-    if @item.update(item_params)
-      redirect_to item_path(item_params)
-    else
-      render 'edit', status: :unprocessable_entity
-    end
-  end
+  #def update
+   # if @item.update(item_params)
+    #  redirect_to item_path(item_params)
+    #else
+     # render 'edit', status: :unprocessable_entity
+    #end
+  #end
 
-  def destroy
-    @item.destroy if @item.user_id == current_user.id
-    redirect_to root_path
-  end
+  #def destroy
+   # @item.destroy if @item.user_id == current_user.id
+    #redirect_to root_path
+  #end
 
   private
 
