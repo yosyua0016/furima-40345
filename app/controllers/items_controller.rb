@@ -54,4 +54,5 @@ class ItemsController < ApplicationController
       :condition_id, :ship_area_id, :ship_date_id,
       :ship_method_id, :price).merge(user_id: current_user.id)
     end
+    
 end
