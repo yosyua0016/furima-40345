@@ -1,27 +1,32 @@
 class Item < ApplicationRecord
+ 
   extend ActiveHash::Associations::ActiveRecordExtensions
-
+  belongs_to :user
+  has_one_attached :image
   belongs_to_active_hash :category
   belongs_to_active_hash :condition
   belongs_to_active_hash :ship_area
   belongs_to_active_hash :ship_date
   belongs_to_active_hash :ship_method
-  belongs_to :user
-  has_one_attached :image
 
-  validates :image,        presence: true
 
-  validates :name,         presence: true
-  validates :description,  presence: true
-  validates :category_id,  presence: true, numericality: { other_than: 0 }
-  validates :condition_id, presence: true, numericality: { other_than: 0 }
-  validates :ship_area_id, presence: true, numericality: { other_than: 0 }
-  validates :ship_date_id, presence: true, numericality: { other_than: 0 }
-  validates :ship_method_id, presence: true, numericality: { other_than: 0 }
-  validates :price,           presence: true,
-                              numericality: {
-                                only_integer: true,
-                                greater_than_or_equal_to: 300,
-                                less_than_or_equal_to: 9_999_999
-                              }
+  with_options presence: true do
+    validates :image
+    validates :name
+    validates :description
+    validates :category_id
+    validates :condition_id
+    validates :ship_area_id
+    validates :ship_date_id
+    validates :ship_method_id
+    validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, only_integer: true }
+  end
+
+  with_options numericality: { other_than: 1 } do
+    validates :category_id
+    validates :condition_id
+    validates :ship_area_id
+    validates :ship_date_id
+    validates :ship_method_id
+  end
 end
