@@ -51,7 +51,7 @@
 |order|references |null: false, foreign_key: true |
 
 ### Assosiation
--belongs_to :purchase_history
+-belongs_to :order
 
 ## commentsテーブル
 |Column|Type|Options|
