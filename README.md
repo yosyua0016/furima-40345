@@ -16,7 +16,7 @@
 ### Assosiation
 - has_many :items
 - has_many :comments
-- has_many :purchase_histories
+- has_many :orders
 
 ## itemsテーブル
 |Column|Type|Options|
@@ -36,7 +36,7 @@
 - belongs_to :user
 - belongs_to :category
 - has_many :comments
-- has_one :purchase_history
+- has_one :order
 
 
 ## addressesテーブル
@@ -48,7 +48,7 @@
 |street    |string|null: false|
 |building   |string|
 |phone_number  |string|null: false|
-|purchase_history|references |null: false, foreign_key: true |
+|order|references |null: false, foreign_key: true |
 
 ### Assosiation
 -belongs_to :purchase_history
@@ -73,7 +73,7 @@
 ### Assosiation
 - has_many :items
 
-## purchase_historiesテーブル
+## ordersテーブル
 |Column|Type|Options|
 |------|----|-------|
 |user   |references|null: false, foreign_key: true|
