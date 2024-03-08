@@ -46,7 +46,17 @@ class OrdersController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
+  def authenticate_user_item!
+    @item = Item.find(params[:item_id])
+    if current_user.id == @item.user_id && @item.order.nil?
+      redirect_to root_path
+    end
+  end
+
   def move_to_index
-    redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
+    @item = Item.find(params[:item_id])
+    if @item.order.present?
+      redirect_to root_path
+    end
   end
 end
