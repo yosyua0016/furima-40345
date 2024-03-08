@@ -3,7 +3,6 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
   has_one :order
-  has_one :order_form
   belongs_to_active_hash :category
   belongs_to_active_hash :condition
   belongs_to_active_hash :ship_area
@@ -29,4 +28,6 @@ class Item < ApplicationRecord
     validates :ship_date_id
     validates :ship_method_id
   end
+
+  has_many :orders
 end
