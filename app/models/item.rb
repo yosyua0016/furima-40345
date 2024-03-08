@@ -28,6 +28,4 @@ class Item < ApplicationRecord
     validates :ship_date_id
     validates :ship_method_id
   end
-
-  has_many :orders
 end
