@@ -10,15 +10,15 @@ class OrdersController < ApplicationController
   end
 
   def create
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order_form = OrderForm.new(order_params)
-
+    
     if @order_form.valid?
       pay_item
       @order_form.save
       redirect_to root_path
     else
-      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
-      render 'index', status: :unprocessable_entity
+      render :index, status: :unprocessable_entity
     end
   end
 
@@ -31,7 +31,7 @@ class OrdersController < ApplicationController
   def pay_item
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
-      amount: @product.price,
+      amount: @item.price,
       card: order_params[:token],
       currency: 'jpy'
     )
@@ -47,6 +47,6 @@ class OrdersController < ApplicationController
   end
 
   def move_to_index
-    # リダイレクト処理など、適切な処理をここに記述する
+    redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
   end
 end
