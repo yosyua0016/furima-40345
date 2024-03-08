@@ -10,9 +10,9 @@ class OrdersController < ApplicationController
   end
 
   def create
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     @order_form = OrderForm.new(order_params)
-    
+
     if @order_form.valid?
       pay_item
       @order_form.save
@@ -25,7 +25,9 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order_form).permit(:postal_code, :ship_area_id, :city, :street, :building, :phone_number).merge(item_id: params[:item_id], user_id: current_user.id, token: params[:token])
+    params.require(:order_form).permit(:postal_code, :ship_area_id, :city, :street, :building, :phone_number).merge(
+      item_id: params[:item_id], user_id: current_user.id, token: params[:token]
+    )
   end
 
   def pay_item
@@ -38,7 +40,6 @@ class OrdersController < ApplicationController
   end
 
   def non_purchased_item
-    @item = Item.find(params[:item_id])
     redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
   end
 
@@ -46,17 +47,7 @@ class OrdersController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
-  def authenticate_user_item!
-    @item = Item.find(params[:item_id])
-    if current_user.id == @item.user_id && @item.order.nil?
-      redirect_to root_path
-    end
-  end
-
   def move_to_index
-    @item = Item.find(params[:item_id])
-    if @item.order.present?
-      redirect_to root_path
-    end
+    redirect_to root_path if @item.order.present?
   end
 end
