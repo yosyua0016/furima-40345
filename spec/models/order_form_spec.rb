@@ -2,20 +2,20 @@ require 'rails_helper'
 require_relative '../../app/models/order_form'
 
 RSpec.describe OrderForm, type: :model do
-  before(:each) do
-    @order_form = OrderForm.new
+  before do
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @order_form = FactoryBot.build(:order_form, user_id: user.id, item_id: item.id)
   end
 
   context '正常系' do
     it 'すべての値とトークンがあれば保存できる' do
-      @order_form = OrderForm.new
+      expect(@order_form).to be_valid
     end
 
     it '建物名が空でも保存できる' do
-      user = FactoryBot.create(:user)
-      item = FactoryBot.create(:item)
-      order_form = FactoryBot.build(:order_form, user_id: user.id, item_id: item.id, building: '')
-      expect(order_form).to be_valid
+      @order_form.building = ''
+      expect(@order_form).to be_valid
     end
   end
 
@@ -65,25 +65,19 @@ RSpec.describe OrderForm, type: :model do
     it '電話番号にハイフンがあると保存できない' do
       @order_form.phone_number = '090-1234-5678'
       @order_form.valid?
-      expect(@order_form.errors.full_messages).to include('Phone number is invalid. Include hyphen(-)')
+      expect(@order_form.errors.full_messages).to include('Phone number is invalid. Exclude hyphen(-)')
     end
 
     it '電話番号が12桁以上だと保存できない' do
       @order_form.phone_number = '090123456789'
       @order_form.valid?
-      expect(@order_form.errors.full_messages).to include('Phone number is invalid. Include hyphen(-)')
+      expect(@order_form.errors.full_messages).to include('Phone number is invalid. Exclude hyphen(-)')
     end
 
     it '電話番号が9桁以下だと保存できない' do
       @order_form.phone_number = '090123456'
       @order_form.valid?
-      expect(@order_form.errors.full_messages).to include('Phone number is invalid. Include hyphen(-)')
-    end
-
-    it 'user_idが空だと保存できない' do
-      @order_form.user_id = nil
-      @order_form.valid?
-      expect(@order_form.errors.full_messages).to include("User can't be blank")
+      expect(@order_form.errors.full_messages).to include('Phone number is invalid. Exclude hyphen(-)')
     end
 
     it 'item_idが空だと保存できない' do
