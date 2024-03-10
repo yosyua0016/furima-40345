@@ -4,9 +4,9 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :move_to_index, only: [:edit, :update]
 
-
   def index
     @items = Item.includes(:user).order('created_at DESC')
+    @item = Item.new
   end
 
   def show
@@ -27,6 +27,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    redirect_to root_path if @item.order.present?
   end
 
   def update

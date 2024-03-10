@@ -1,4 +1,4 @@
-const calculateProfit = () => {
+const itemPrice = () => {
   const priceInput = document.getElementById("item-price");
   if (!priceInput) { return false; } 
 
@@ -15,5 +15,5 @@ const calculateProfit = () => {
   });
 };
 
-window.addEventListener("turbo:load", calculateProfit);
-window.addEventListener("turbo:render", calculateProfit);
+window.addEventListener("turbo:load", itemPrice);
+window.addEventListener("turbo:render", itemPrice);
