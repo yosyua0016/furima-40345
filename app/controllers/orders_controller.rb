@@ -2,7 +2,6 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   before_action :set_item, only: [:index, :create]
   before_action :move_to_index, only: [:index, :create]
-  before_action :non_purchased_item, only: [:index, :create]
 
   def index
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
@@ -39,15 +38,11 @@ class OrdersController < ApplicationController
     )
   end
 
-  def non_purchased_item
-    redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
-  end
-
   def set_item
     @item = Item.find(params[:item_id])
   end
 
   def move_to_index
-    redirect_to root_path if @item.order.present?
+    redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
   end
 end
