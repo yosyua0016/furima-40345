@@ -2,7 +2,7 @@ let payInitialized = false; // 初期化済みフラグ
 
 const pay = () => {
   if (!payInitialized) { // 初期化済みでない場合のみ処理を実行
-    const publicKey = gon.public_key
+    const publicKey = gon.public_key;
     const payjp = Payjp(publicKey)
     const elements = payjp.elements();
     const numberElement = elements.create('cardNumber');
