@@ -80,10 +80,6 @@ end
 
 gem 'pry-rails'
 
-group :production do
-  gem 'pg'
-end
-
 gem 'devise'
 
 gem 'mini_magick'
